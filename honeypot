@@ -18,6 +18,12 @@ PORT=$(pick_port)
 # Start the server
 # function
 function start_server() {
+    # Check if python3 is installed
+    if ! command -v python3 &>/dev/null; then
+        echo "python3 could not be found"
+        exit
+    fi
+
     echo "Starting server..."
     trap 'kill $(jobs -p)' SIGINT
     python3 server.py --port "$PORT"
