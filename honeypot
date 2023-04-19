@@ -25,11 +25,19 @@ function start_server() {
 
 # start ngrok
 function start_ngrok() {
+
+    # Check if ngrok is installed
+    if ! command -v ngrok &>/dev/null; then
+        echo "ngrok could not be found"
+        exit
+    fi
+
     echo "Starting ngrok..."
     ngrok http "$PORT"
 }
 
-echo "Starting server..."
+echo "Starting HoneyPot..."
+
 trap 'kill $(jobs -p)' SIGINT
 start_server &
 start_ngrok
