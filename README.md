@@ -1,6 +1,6 @@
 # Honeypot
 
-This project consists of two files: `honeypot.sh` and `server.py`. The `honeypot.sh` file starts a server using `server.py` on a random available port and exposes it to the internet using `ngrok`.
+This project consists of two files: `honeypot` and `server.py`. The `honeypot` file starts a server using `server.py` on a random available port and exposes it to the internet using `ngrok`.
 
 ## Usage
 
