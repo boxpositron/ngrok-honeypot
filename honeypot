@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Pick a random port free port
+# function
+function pick_port() {
+    while true; do
+        PORT=$(((RANDOM % 10000) + 10000))
+        if ! lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null; then
+            echo $PORT
+            break
+        fi
+    done
+}
+
+# Pick a random port
+PORT=$(pick_port)
+
+# Start the server
+# function
+function start_server() {
+    echo "Starting server..."
+    trap 'kill $(jobs -p)' SIGINT
+    python3 server.py --port "$PORT"
+}
+
+# start ngrok
+function start_ngrok() {
+    echo "Starting ngrok..."
+    ngrok http "$PORT"
+}
+
+echo "Starting server..."
+trap 'kill $(jobs -p)' SIGINT
+start_server &
+start_ngrok
